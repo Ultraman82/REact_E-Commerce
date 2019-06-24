@@ -1,0 +1,30 @@
+import React, { Component } from "react";
+import Product from "./Product";
+import Title from "./Title";
+import { ProductConsumer } from "../context";
+
+export default class ProductList extends Component {
+  render() {
+    return (
+      <React.Fragment>
+        <div className="py-5">
+          <div className="container">
+            <Title name="our" title="laptops" />
+            <div className="row">
+              <ProductConsumer>
+                {value => {
+                  let cpus = value.products.filter(
+                    item => item.group === "laptop"
+                  );
+                  return cpus.map(product => {
+                    return <Product key={product.id} product={product} />;
+                  });
+                }}
+              </ProductConsumer>
+            </div>
+          </div>
+        </div>
+      </React.Fragment>
+    );
+  }
+}
